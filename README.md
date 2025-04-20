@@ -2,6 +2,10 @@
 
 This is a fullstack travel tip web application that allows users to share travel experiences and explore tips posted by others. Users can create and view posts that include a title, description, location, image, and author information. The project features a React frontend and a Node.js backend connected to a MySQL database.
 
+# Deploy:
+[text](https://client-2lh7rvc4s-lindas-projects-53352480.vercel.app)
+
+
 ## ✨ Features
 
 - View travel tips posted by other users
