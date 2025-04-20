@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 router.get("/", async (req, res) => {
     const { place } = req.query;
 
-    console.log("Received search query:", place);
     if (!place || place.trim() === "") {
         return res.status(400).json({ error: "Search query is required" });
     }
@@ -22,7 +21,6 @@ router.get("/", async (req, res) => {
             post.featuredPlace?.toLowerCase().includes(place.toLowerCase())
         );
 
-        console.log(`Found ${filtered.length} posts matching the query`);
         res.json(filtered);
     } catch (err) {
         console.error("Error searching posts:", err);

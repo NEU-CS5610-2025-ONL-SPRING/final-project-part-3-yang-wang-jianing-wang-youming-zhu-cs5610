@@ -8,21 +8,6 @@ function PostCard({ post, isLoggedIn }) {
     const [disliked, setDisliked] = useState(false);
 
 
-    // const handleLike = (e) => {
-    //     e.preventDefault();
-    //     if (!isLoggedIn) return alert("Please login");
-    //     if (!liked) {
-    //         setLikes(likes + 1);
-    //         if (disliked) {
-    //             setDislikes(dislikes - 1);
-    //             setDisliked(false);
-    //         }
-    //         setLiked(true);
-    //     } else {
-    //         setLikes(likes - 1);
-    //         setLiked(false);
-    //     }
-    // };
     const handleLike = async (e) => {
         e.preventDefault();
         if (!isLoggedIn) return alert("Please login");
@@ -55,21 +40,7 @@ function PostCard({ post, isLoggedIn }) {
     };
 
 
-    // const handleDislike = (e) => {
-    //     e.preventDefault();
-    //     if (!isLoggedIn) return alert("Please login");
-    //     if (!disliked) {
-    //         setDislikes(dislikes + 1);
-    //         if (liked) {
-    //             setLikes(likes - 1);
-    //             setLiked(false);
-    //         }
-    //         setDisliked(true);
-    //     } else {
-    //         setDislikes(dislikes - 1);
-    //         setDisliked(false);
-    //     }
-    // };
+
     const handleDislike = async (e) => {
         e.preventDefault();
         if (!isLoggedIn) return alert("Please login");

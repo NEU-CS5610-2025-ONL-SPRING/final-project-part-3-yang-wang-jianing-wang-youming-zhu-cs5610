@@ -51,7 +51,7 @@ router.post("/", requireAuth, async (req, res) => {
             where: { id: itemId },
             data: { likeCount, dislikeCount }
         });
-        console.log(`✅ Updated item ${itemId}: likeCount=${likeCount}, dislikeCount=${dislikeCount}`);
+        // console.log(`✅ Updated item ${itemId}: likeCount=${likeCount}, dislikeCount=${dislikeCount}`);
 
         res.json({ likeCount, dislikeCount });
     } catch (err) {
