@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import API_BASE_URL from "./api/api";
+import API_BASE_URL from "../api/api";
 
 function PostDetail({ isLoggedIn }) {
     const { id } = useParams();

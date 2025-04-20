@@ -13,7 +13,7 @@ import Register from "./pages/Register";
 import Items from "./pages/Items";
 import AddItem from "./pages/AddItem";
 import PostForm from "./pages/make_post";
-import API_BASE_URL from "./api/api";
+import API_BASE_URL from "../api/api";
 
 
 function App() {
