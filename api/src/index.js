@@ -11,14 +11,14 @@ import likeRoutes from "./routes/like.js";
 dotenv.config();
 const app = express();
 
-// app.use(cors({ origin: true, credentials: true }));
-// app.use(express.json());
-// app.use(cookieParser());
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json());
+app.use(cookieParser());
 
-// app.use("/auth", authRoutes);
-// app.use("/items", itemsRoutes);
-// app.use("/search", searchItemsRoutes);
-// app.use("/like", likeRoutes);
+app.use("/auth", authRoutes);
+app.use("/items", itemsRoutes);
+app.use("/search", searchItemsRoutes);
+app.use("/like", likeRoutes);
 
 console.log("✅ Running app...");
 app.get("/ping", (req, res) => res.json({ message: "pong" }));
