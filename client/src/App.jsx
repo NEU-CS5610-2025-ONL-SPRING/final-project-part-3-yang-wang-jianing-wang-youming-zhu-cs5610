@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import Items from "./pages/Items";
 import AddItem from "./pages/AddItem";
 import PostForm from "./pages/make_post";
+import PostList from "./pages/PostList";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<PostsGrid isLoggedIn={isLoggedIn} />} />
             <Route path="/post/:id" element={<PostDetail isLoggedIn={isLoggedIn} />} />
+            <Route path="/posts" element={<PostList />} />
 
 
             {/* Protected Routes */}

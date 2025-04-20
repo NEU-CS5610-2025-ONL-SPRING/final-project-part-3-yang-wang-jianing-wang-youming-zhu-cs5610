@@ -1,78 +1,125 @@
+// import React, { useState } from "react";
+
+// export default function PostForm() {
+//   const [image, setImage] = useState(null);
+//   const [imagePreview, setImagePreview] = useState(null);
+//   const [title, setTitle] = useState("");
+//   const [content, setContent] = useState("");
+//   const [hashtags, setHashtags] = useState("");
+
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     setImage(file);
+//     setImagePreview(URL.createObjectURL(file));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const postData = {
+//       name: title,
+//       description: content,
+//       featuredPlace: hashtags,
+//       imageUrl: "https://via.placeholder.com/300", // 临时图片链接，之后替换为真实上传结果
+//     };
+
+//     try {
+//       const res = await fetch("http://localhost:8000/items", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json"
+//         },
+//         credentials: "include", // token
+//         body: JSON.stringify(postData),
+//       });
+
+//       if (!res.ok) {
+//         throw new Error("Failed to submit post");
+//       }
+
+//       const result = await res.json();
+//       console.log("✅ Post submitted:", result);
+//       alert("Post submitted successfully!");
+//     } catch (error) {
+//       console.error("❌ Submit failed:", error);
+//       alert("Something went wrong while submitting the post.");
+//     }
+//   };
+
+
+//   return (
+//     <div className="flex flex-col lg:flex-row p-6 gap-6 max-w-7xl mx-auto">
+//       {/* Left side form */}
+//       <div className="flex-1 space-y-4">
+
+
+//         {/* Image upload */}
+//         <div className="border p-4 rounded">
+//           <label className="block mb-2 font-medium">upload image (1/18)</label>
+//           {imagePreview ? (
+//             <img
+//               src={imagePreview}
+//               alt="preview"
+//               className="h-40 object-contain mb-2"
+//             />
+//           ) : (
+//             <div className="w-full h-40 border border-dashed flex items-center justify-center text-gray-400">
+//               No image
+//             </div>
+//           )}
+//           <input type="file" accept="image/*" onChange={handleImageChange} />
+//         </div>
+
+//         {/* Content */}
+//         <div>
+//           <input
+//             type="text"
+//             placeholder="Title"
+//             className="w-full p-2 border rounded mb-2"
+//             value={title}
+//             onChange={(e) => setTitle(e.target.value)}
+//           />
+//           <textarea
+//             placeholder="input text"
+//             className="w-full p-2 border rounded"
+//             rows={6}
+//             value={content}
+//             onChange={(e) => setContent(e.target.value)}
+//           />
+//         </div>
+
+//         {/* Hashtags */}
+//         <div>
+//           <label className="block font-medium mb-1">Featured Place</label>
+//           <input
+//             type="text"
+//             placeholder="restaurant name, tourist attraction name, etc."
+//             className="w-full p-2 border rounded"
+//             value={hashtags}
+//             onChange={(e) => setHashtags(e.target.value)}
+//           />
+//         </div>
+
+//         {/* Buttons */}
+//         <div className="flex gap-4 mt-4">
+//           <button
+//             onClick={handleSubmit}
+//             className="bg-red-500 text-white px-4 py-2 rounded"
+//           >
+//             Submit
+//           </button>
+//         </div>
+//       </div>
+
+
+//     </div>
+//   );
+// }
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import PostList from './PostList'
 
-function PostList() {
-  const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState(null);
 
-  useEffect(() => {
-    // Step 1: Get current user ID
-    fetch("http://localhost:8000/auth/current-user", {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        setUserId(user.id);
-        return fetch(`http://localhost:8000/items?userId=${user.id}`, {
-          credentials: "include",
-        });
-      })
-      .then((res) => res.json())
-      .then((data) => setPosts(data))
-      .catch((err) => console.error("Failed to load posts:", err));
-  }, []);
-
-  const handleDelete = async (postId) => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
-
-    try {
-      const res = await fetch(`http://localhost:8000/items/${postId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error("Delete failed");
-
-      setPosts((prev) => prev.filter((p) => p.id !== postId));
-    } catch (err) {
-      alert("Failed to delete post.");
-      console.error(err);
-    }
-  };
-
-  return (
-    <div className="mt-10 space-y-6">
-      <h2 className="text-xl font-bold">My Posts</h2>
-      {posts.map((post) => (
-        <div key={post.id} className="p-4 border rounded shadow relative">
-          {post.imageUrl && (
-            <img
-              src={post.imageUrl}
-              alt="Post"
-              className="w-full h-48 object-cover mb-2"
-            />
-          )}
-          <h3 className="text-lg font-semibold">{post.name}</h3>
-          <p>{post.description}</p>
-          <p className="text-sm text-gray-500">
-            📍 {post.featuredPlace || "No location"}
-          </p>
-          <p className="text-sm text-yellow-600">
-            ⭐ Rating: {post.rating ? post.rating.toFixed(1) : "N/A"}
-          </p>
-          <p className="text-xs text-gray-400">
-            🕒 {new Date(post.createdAt).toLocaleString()}
-          </p>
-          <button
-            onClick={() => handleDelete(post.id)}
-            className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white px-2 py-1 text-xs rounded"
-          >
-            Delete
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function PostForm() {
   const [image, setImage] = useState(null);
@@ -80,6 +127,7 @@ export default function PostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [hashtags, setHashtags] = useState("");
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -90,37 +138,33 @@ export default function PostForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !content) {
-      alert("Title and content are required.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("name", title);
-    formData.append("description", content);
-    formData.append("featuredPlace", hashtags);
+    const postData = {
+      name: title,
+      description: content,
+      featuredPlace: hashtags,
+      imageUrl: "https://via.placeholder.com/300",
+    };
 
     try {
       const res = await fetch("http://localhost:8000/items", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         credentials: "include",
-        body: formData,
+        body: JSON.stringify(postData),
       });
 
       const result = await res.json();
 
       if (!res.ok) {
         console.error("❌ Backend error:", result);
-        throw new Error("Post creation failed.");
+        throw new Error("Post creation failed");
       }
 
-      alert("✅ Post submitted successfully!");
-      setTitle("");
-      setContent("");
-      setImage(null);
-      setImagePreview(null);
-      setHashtags("");
+      console.log("✅ Post created:", result);
+      alert("🎉 Post submitted!");
+      navigate(`/post/${result.id}`);
     } catch (err) {
       console.error("❌ Submit failed:", err);
       alert("Failed to submit post.");
@@ -130,8 +174,9 @@ export default function PostForm() {
   return (
     <div className="flex flex-col lg:flex-row p-6 gap-6 max-w-7xl mx-auto">
       <div className="flex-1 space-y-4">
+        {/* Image upload */}
         <div className="border p-4 rounded">
-          <label className="block mb-2 font-medium">Upload image</label>
+          <label className="block mb-2 font-medium">Upload image (1/18)</label>
           {imagePreview ? (
             <img
               src={imagePreview}
@@ -140,12 +185,13 @@ export default function PostForm() {
             />
           ) : (
             <div className="w-full h-40 border border-dashed flex items-center justify-center text-gray-400">
-              No image selected
+              No image
             </div>
           )}
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </div>
 
+        {/* Content */}
         <div>
           <input
             type="text"
@@ -155,7 +201,7 @@ export default function PostForm() {
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            placeholder="Write your content here..."
+            placeholder="Input text"
             className="w-full p-2 border rounded"
             rows={6}
             value={content}
@@ -163,30 +209,35 @@ export default function PostForm() {
           />
         </div>
 
+        {/* Hashtags */}
         <div>
           <label className="block font-medium mb-1">Featured Place</label>
           <input
             type="text"
-            placeholder="e.g. restaurant, tourist spot"
+            placeholder="restaurant name, tourist attraction name, etc."
             className="w-full p-2 border rounded"
             value={hashtags}
             onChange={(e) => setHashtags(e.target.value)}
           />
         </div>
 
+        {/* Buttons */}
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleSubmit}
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+            className="bg-red-500 text-white px-4 py-2 rounded"
           >
-            Submit Post
+            Submit
           </button>
         </div>
       </div>
 
+      {/* Post List */}
+      {/* 
       <div className="flex-1">
         <PostList />
       </div>
+       */}
     </div>
   );
 }

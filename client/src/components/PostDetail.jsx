@@ -11,21 +11,19 @@ function PostDetail({ isLoggedIn }) {
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
 
-    const fetchPost = async () => {
-        try {
-            const res = await fetch(`http://localhost:8000/items/${id}`);
-            const data = await res.json();
-            setPost(data);
-            setLikes(data.likeCount || 0);
-            setDislikes(data.dislikeCount || 0);
-        } catch (err) {
-            console.error("Error loading post:", err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const res = await fetch(`http://localhost:8000/items/${id}`);
+                const data = await res.json();
+                setPost(data);
+            } catch (err) {
+                console.error("Error loading post:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchPost();
     }, [id]);
 
@@ -36,63 +34,31 @@ function PostDetail({ isLoggedIn }) {
     if (loading) return <p style={{ padding: '24px' }}>Loading post...</p>;
     if (!post) return <p style={{ padding: '24px' }}>Post not found.</p>;
 
-    const handleLike = async () => {
-        try {
-            const res = await fetch("http://localhost:8000/like", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    itemId: post.id,
-                    isLike: true
-                })
-            });
-
-            if (res.ok) {
-                const data = await res.json();
-                setLikes(data.likeCount);
-                setDislikes(data.dislikeCount);
-                if (liked) {
-                    setLiked(false);
-                } else {
-                    setLiked(true);
-                    setDisliked(false);
-                }
+    const handleLike = () => {
+        if (!liked) {
+            setLikes(likes + 1);
+            if (disliked) {
+                setDislikes(dislikes - 1);
+                setDisliked(false);
             }
-        } catch (err) {
-            console.error("Error liking post:", err);
+            setLiked(true);
+        } else {
+            setLikes(likes - 1);
+            setLiked(false);
         }
     };
 
-    const handleDislike = async () => {
-        try {
-            const res = await fetch("http://localhost:8000/like", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    itemId: post.id,
-                    isLike: false
-                })
-            });
-
-            if (res.ok) {
-                const data = await res.json();
-                setLikes(data.likeCount);
-                setDislikes(data.dislikeCount);
-                if (disliked) {
-                    setDisliked(false);
-                } else {
-                    setDisliked(true);
-                    setLiked(false);
-                }
+    const handleDislike = () => {
+        if (!disliked) {
+            setDislikes(dislikes + 1);
+            if (liked) {
+                setLikes(likes - 1);
+                setLiked(false);
             }
-        } catch (err) {
-            console.error("Error disliking post:", err);
+            setDisliked(true);
+        } else {
+            setDislikes(dislikes - 1);
+            setDisliked(false);
         }
     };
 
@@ -111,9 +77,7 @@ function PostDetail({ isLoggedIn }) {
 
                     <div style={{ marginTop: '20px', display: 'flex', gap: '20px' }}>
                         <div onClick={handleLike} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                            <span style={{ fontSize: '18px', color: liked ? 'blue' : 'gray', marginRight: '6px' }}>
-                                👍
-                            </span>
+                            <span style={{ fontSize: '18px', color: liked ? 'red' : 'gray', marginRight: '6px' }}>{liked ? '❤️' : '🤍'}</span>
                             <span>{likes}</span>
                         </div>
                         <div onClick={handleDislike} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>

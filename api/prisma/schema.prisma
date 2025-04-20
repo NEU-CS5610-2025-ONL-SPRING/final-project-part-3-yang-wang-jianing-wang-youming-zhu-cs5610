@@ -15,7 +15,6 @@ model User {
   bio        String?
   createdAt  DateTime @default(now())
   items      Item[]
-  likes      Like[]
 }
 
 model Item {
@@ -28,19 +27,4 @@ model Item {
   createdAt   DateTime @default(now())
   userId      Int
   user        User     @relation(fields: [userId], references: [user_id])
-  likes         Like[]
-  likeCount     Int      @default(0)
-  dislikeCount  Int      @default(0)
-}
-
-model Like {
-  like_id   Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [user_id])
-  userId    Int
-  item      Item     @relation(fields: [itemId], references: [id])
-  itemId    Int
-  isLike    Boolean  // true for like, false for dislike
-  createdAt DateTime @default(now())
-
-  @@unique([userId, itemId]) // make sure 1 user to 1 post only has 1 like or dislike
 }

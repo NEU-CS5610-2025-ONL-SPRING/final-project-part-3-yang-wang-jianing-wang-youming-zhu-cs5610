@@ -58,6 +58,21 @@ function PostsGrid({ isLoggedIn }) {
     const [searchParams] = useSearchParams();
     const place = searchParams.get("place");
 
+    const pageStyle = {
+        // make the div fill the viewport
+        minHeight: '100vh',
+        margin: 0,
+        // set your background image (or swap for a color)
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${process.env.PUBLIC_URL + '/homepage_background.jpg'})`,
+        backgroundColor: '#FFFFFFFF',
+        backgroundPosition: 'center',    // center the image
+        backgroundSize: 'cover',         // scale to cover the whole area
+        backgroundRepeat: 'no-repeat',   // prevent tiling
+        display: 'flex',                 // center content too
+        flexDirection: 'column',
+    
+      };
+
     useEffect(() => {
         if (place) {
             console.log("📍 Searching for:", place);
@@ -82,7 +97,7 @@ function PostsGrid({ isLoggedIn }) {
     }, [place]);
 
     return (
-        <div className="px-8 py-4">
+        <div className="px-8 py-4" style={pageStyle}>
             <h2 className="text-xl font-bold mb-4">
                 Results for <span className="text-green-600">"{place}"</span>
             </h2>

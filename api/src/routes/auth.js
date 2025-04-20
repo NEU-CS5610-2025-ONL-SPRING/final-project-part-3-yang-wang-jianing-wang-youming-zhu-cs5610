@@ -61,10 +61,10 @@ router.post("/register", async (req, res) => {
 
     // Create the new user
     const newUser = await prisma.user.create({
-      data: {
-        username,
-        email,
-        password: hashedPassword,
+      data: { 
+        username, 
+        email, 
+        password: hashedPassword, 
         bio: bio || null  // Explicitly set bio to null if not provided
       },
     });
@@ -77,10 +77,10 @@ router.post("/register", async (req, res) => {
     res.cookie("token", token, { httpOnly: true, maxAge: 15 * 60 * 1000 });
 
     // Send success response
-    res.status(201).json({
-      user_id: newUser.user_id,
-      username: newUser.username,
-      email: newUser.email
+    res.status(201).json({ 
+      user_id: newUser.user_id, 
+      username: newUser.username, 
+      email: newUser.email 
     });
   } catch (error) {
     console.error("Error during registration:", error); // Log the error for debugging
@@ -98,11 +98,11 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await prisma.user.findFirst({
-      where: {
+      where: { 
         OR: [
           { email: email || "" },
           { username: username || "" }
-        ]
+        ] 
       },
     });
 
@@ -118,16 +118,16 @@ router.post("/login", async (req, res) => {
     const payload = { userId: user.user_id };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
 
-    res.cookie("token", token, {
-      httpOnly: true,
+    res.cookie("token", token, { 
+      httpOnly: true, 
       maxAge: 15 * 60 * 1000,
       sameSite: 'strict'
     });
 
-    res.json({
-      user_id: user.user_id,
-      username: user.username,
-      email: user.email
+    res.json({ 
+      user_id: user.user_id, 
+      username: user.username, 
+      email: user.email 
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -170,11 +170,6 @@ router.get("/check", async (req, res) => {
   } catch (err) {
     res.json({ isAuthenticated: false });
   }
-});
-
-// Get current login user ID（using JWT or session middleware）
-router.get("/current-user", requireAuth, (req, res) => {
-  res.json({ id: req.userId });
 });
 
 export default router;

@@ -5,7 +5,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import itemsRoutes from "./routes/items.js";
 import searchItemsRoutes from "./routes/search_items.js";
-import likeRoutes from "./routes/like.js";
+import placesRoutes from "./routes/places.js";
 
 
 dotenv.config();
@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/items", itemsRoutes);
 app.use("/search", searchItemsRoutes);
-app.use("/like", likeRoutes);
+app.use("/places", placesRoutes);
 
 app.get("/ping", (req, res) => res.json({ message: "pong" }));
 

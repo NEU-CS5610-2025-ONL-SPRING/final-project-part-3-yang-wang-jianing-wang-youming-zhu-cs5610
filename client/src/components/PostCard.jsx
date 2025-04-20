@@ -2,105 +2,42 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function PostCard({ post, isLoggedIn }) {
-    const [likes, setLikes] = useState(post.likeCount || 0);
-    const [dislikes, setDislikes] = useState(post.dislikeCount || 0);
+    const [likes, setLikes] = useState(0);
+    const [dislikes, setDislikes] = useState(0);
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
 
-
-    // const handleLike = (e) => {
-    //     e.preventDefault();
-    //     if (!isLoggedIn) return alert("Please login");
-    //     if (!liked) {
-    //         setLikes(likes + 1);
-    //         if (disliked) {
-    //             setDislikes(dislikes - 1);
-    //             setDisliked(false);
-    //         }
-    //         setLiked(true);
-    //     } else {
-    //         setLikes(likes - 1);
-    //         setLiked(false);
-    //     }
-    // };
-    const handleLike = async (e) => {
+    const handleLike = (e) => {
         e.preventDefault();
         if (!isLoggedIn) return alert("Please login");
-
-        try {
-            const res = await fetch("http://localhost:8000/like", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    itemId: post.id,
-                    isLike: true
-                })
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-                setLiked(!liked);
+        if (!liked) {
+            setLikes(likes + 1);
+            if (disliked) {
+                setDislikes(dislikes - 1);
                 setDisliked(false);
-                setLikes(data.likeCount);
-                setDislikes(data.dislikeCount);
-            } else {
-                console.error("Failed to like:", data.error);
             }
-        } catch (err) {
-            console.error("Request error:", err);
+            setLiked(true);
+        } else {
+            setLikes(likes - 1);
+            setLiked(false);
         }
     };
 
-
-    // const handleDislike = (e) => {
-    //     e.preventDefault();
-    //     if (!isLoggedIn) return alert("Please login");
-    //     if (!disliked) {
-    //         setDislikes(dislikes + 1);
-    //         if (liked) {
-    //             setLikes(likes - 1);
-    //             setLiked(false);
-    //         }
-    //         setDisliked(true);
-    //     } else {
-    //         setDislikes(dislikes - 1);
-    //         setDisliked(false);
-    //     }
-    // };
-    const handleDislike = async (e) => {
+    const handleDislike = (e) => {
         e.preventDefault();
         if (!isLoggedIn) return alert("Please login");
-
-        try {
-            const res = await fetch("http://localhost:8000/like", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    itemId: post.id,
-                    isLike: false
-                })
-            });
-
-            const data = await res.json();
-            if (res.ok) {
-                setDisliked(!disliked);
+        if (!disliked) {
+            setDislikes(dislikes + 1);
+            if (liked) {
+                setLikes(likes - 1);
                 setLiked(false);
-                setLikes(data.likeCount);
-                setDislikes(data.dislikeCount);
-            } else {
-                console.error("Failed to dislike:", data.error);
             }
-        } catch (err) {
-            console.error("Request error:", err);
+            setDisliked(true);
+        } else {
+            setDislikes(dislikes - 1);
+            setDisliked(false);
         }
     };
-
 
     return (
         <div
@@ -156,8 +93,8 @@ function PostCard({ post, isLoggedIn }) {
                         alignItems: 'center'
                     }}
                 >
-                    <span style={{ fontSize: '18px', color: liked ? 'blue' : 'gray', marginRight: '6px' }}>
-                        👍
+                    <span style={{ fontSize: '18px', color: liked ? 'red' : 'gray', marginRight: '6px' }}>
+                        {liked ? '❤️' : '🤍'}
                     </span>
                     <span>{likes}</span>
                 </div>
