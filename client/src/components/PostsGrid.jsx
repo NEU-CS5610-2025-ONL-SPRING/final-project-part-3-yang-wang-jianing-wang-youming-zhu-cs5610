@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PostCard from './PostCard';
+import API_BASE_URL from "../api/api";
+
 
 function PostsGrid({ isLoggedIn }) {
     const [posts, setPosts] = useState([]);
@@ -12,7 +14,7 @@ function PostsGrid({ isLoggedIn }) {
         if (place) {
             console.log("📍 Searching for:", place);
 
-            fetch(`http://localhost:8000/search?place=${encodeURIComponent(place)}`)
+            fetch(`${API_BASE_URL}/search?place=${encodeURIComponent(place)}`)
                 .then((res) => res.json())
                 .then((data) => {
                     console.log("✅ Received:", data);

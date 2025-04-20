@@ -3,13 +3,15 @@ import React from 'react';
 import SearchBar from '../components/home_search_bar';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import API_BASE_URL from "../api/api";
+
 
 function Homepage() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:8000/auth/logout", {}, { withCredentials: true });
+      await axios.post(`${API_BASE_URL}/auth/logout`, {}, { withCredentials: true });
       navigate("/login"); // Redirect to login page
     } catch (err) {
       console.error("Error during logout:", err);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_BASE_URL from "../api/api";
 
 export default function Login({ onLogin }) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -14,7 +15,7 @@ export default function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/auth/login", formData, { withCredentials: true });
+      await axios.post(`${API_BASE_URL}/auth/login`, formData, { withCredentials: true });
       onLogin(); // Update login state
       navigate("/"); // Redirect to homepage
     } catch (err) {

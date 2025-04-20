@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import API_BASE_URL from "../api/api";
 
 function PostDetail({ isLoggedIn }) {
     const { id } = useParams();
@@ -13,7 +14,7 @@ function PostDetail({ isLoggedIn }) {
 
     const fetchPost = async () => {
         try {
-            const res = await fetch(`http://localhost:8000/items/${id}`);
+            const res = await fetch(`${API_BASE_URL}/items/${id}`);
             const data = await res.json();
             setPost(data);
             setLikes(data.likeCount || 0);
@@ -38,7 +39,7 @@ function PostDetail({ isLoggedIn }) {
 
     const handleLike = async () => {
         try {
-            const res = await fetch("http://localhost:8000/like", {
+            const res = await fetch("${API_BASE_URL}/like", {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -68,7 +69,7 @@ function PostDetail({ isLoggedIn }) {
 
     const handleDislike = async () => {
         try {
-            const res = await fetch("http://localhost:8000/like", {
+            const res = await fetch("${API_BASE_URL}/like", {
                 method: "POST",
                 credentials: "include",
                 headers: {

@@ -13,8 +13,8 @@ import Register from "./pages/Register";
 import Items from "./pages/Items";
 import AddItem from "./pages/AddItem";
 import PostForm from "./pages/make_post";
+import API_BASE_URL from "../api/api";
 
-const API_BASE_URL = "https://final-project-part-3-yang-wang-jianing.onrender.com";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("${API_BASE_URL}/auth/check", { withCredentials: true });
+        const res = await axios.get(`${API_BASE_URL}/auth/check`, { withCredentials: true });
         setIsLoggedIn(res.data.isAuthenticated);
       } catch (err) {
         setIsLoggedIn(false);
@@ -34,7 +34,7 @@ function App() {
   const handleLogin = () => setIsLoggedIn(true);
   const handleLogout = async () => {
     try {
-      await axios.post("${API_BASE_URL}/auth/logout", {}, { withCredentials: true });
+      await axios.post(`${API_BASE_URL}/auth/logout`, {}, { withCredentials: true });
       setIsLoggedIn(false);
     } catch (err) {
       console.error("Logout failed:", err);

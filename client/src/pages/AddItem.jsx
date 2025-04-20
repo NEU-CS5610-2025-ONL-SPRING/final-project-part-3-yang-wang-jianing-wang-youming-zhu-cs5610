@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../api/api";
+
 
 export default function AddItem() {
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -11,7 +13,7 @@ export default function AddItem() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/items", formData, {
+      await axios.post(`${API_BASE_URL}/items`, formData, {
         withCredentials: true,
       });
       alert("Item added successfully!");

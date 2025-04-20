@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../api/api";
 
 function PostList() {
   const [posts, setPosts] = useState([]);
@@ -6,13 +7,13 @@ function PostList() {
 
   useEffect(() => {
     // Step 1: Get current user ID
-    fetch("http://localhost:8000/auth/current-user", {
+    fetch(`${API_BASE_URL}/auth/current-user`, {
       credentials: "include",
     })
       .then((res) => res.json())
       .then((user) => {
         setUserId(user.id);
-        return fetch(`http://localhost:8000/items?userId=${user.id}`, {
+        return fetch(`${API_BASE_URL}/items?userId=${user.id}`, {
           credentials: "include",
         });
       })
@@ -25,7 +26,7 @@ function PostList() {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
-      const res = await fetch(`http://localhost:8000/items/${postId}`, {
+      const res = await fetch(`${API_BASE_URL}/items/${postId}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -102,7 +103,7 @@ export default function PostForm() {
     formData.append("featuredPlace", hashtags);
 
     try {
-      const res = await fetch("http://localhost:8000/items", {
+      const res = await fetch(`${API_BASE_URL}/items`, {
         method: "POST",
         credentials: "include",
         body: formData,

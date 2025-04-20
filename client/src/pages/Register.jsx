@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../api/api";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ export default function Register() {
 
     try {
       const { retypePassword, ...dataToSend } = formData;
-      const res = await axios.post("http://localhost:8000/auth/register", dataToSend, {
+      const res = await axios.post(`${API_BASE_URL}/auth/register`, dataToSend, {
         withCredentials: true,
       });
       navigate("/login");
@@ -68,69 +69,69 @@ export default function Register() {
         }}
       >
         <h2 style={{ textAlign: "center", color: "#4CAF50", marginBottom: "20px", fontSize: "25px" }}>Registration Form</h2>
-      <div style={{ marginBottom: "15px" }}>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-          style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
-        />
-      </div>
-      <div style={{ marginBottom: "15px" }}>
-        <label>Re-type Password:</label>
-        <input
-          type="password"
-          name="retypePassword"
-          placeholder="Re-type Password"
-          value={formData.retypePassword}
-          onChange={handleChange}
-          required
-          style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
-        />
-      </div>
-      <button
-        type="submit"
-        style={{
-          width: "100%",
-          padding: "10px",
-          backgroundColor: "#4CAF50",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Submit
-      </button>
-    </form>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Username:</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
+          />
+        </div>
+        <div style={{ marginBottom: "15px" }}>
+          <label>Re-type Password:</label>
+          <input
+            type="password"
+            name="retypePassword"
+            placeholder="Re-type Password"
+            value={formData.retypePassword}
+            onChange={handleChange}
+            required
+            style={{ width: "100%", padding: "10px", marginTop: "5px", border: "1px solid #ccc", borderRadius: "5px" }}
+          />
+        </div>
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Submit
+        </button>
+      </form>
     </div >
   );
 }
