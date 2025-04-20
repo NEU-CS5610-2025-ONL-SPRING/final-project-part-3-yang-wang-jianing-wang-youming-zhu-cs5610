@@ -3,7 +3,7 @@ import React from 'react';
 import SearchBar from '../components/home_search_bar';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import API_BASE_URL from "../api/api";
+import API_BASE_URL from "./api/api";
 
 
 function Homepage() {

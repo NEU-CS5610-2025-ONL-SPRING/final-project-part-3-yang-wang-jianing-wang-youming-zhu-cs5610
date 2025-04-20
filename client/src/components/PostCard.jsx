@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import API_BASE_URL from "../api/api";
+import API_BASE_URL from "./api/api";
 
 
 function PostCard({ post, isLoggedIn }) {
@@ -15,7 +15,7 @@ function PostCard({ post, isLoggedIn }) {
         if (!isLoggedIn) return alert("Please login");
 
         try {
-            const res = await fetch("${API_BASE_URL}/like", {
+            const res = await fetch(`${API_BASE_URL}/like`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -48,7 +48,7 @@ function PostCard({ post, isLoggedIn }) {
         if (!isLoggedIn) return alert("Please login");
 
         try {
-            const res = await fetch("${API_BASE_URL}/like", {
+            const res = await fetch(`${API_BASE_URL}/like`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
