@@ -95,3 +95,5 @@ JWT_SECRET=your-jwt-secret
 - **Backend**: Node.js, Express, Prisma ORM
 - **Database**: MySQL
 - **Authentication**: JWT (JSON Web Tokens)
+
+## deployment instructions: https://docs.google.com/document/d/1EAXheb9Q7at094xKAhRikD5uQE15q7G_OWaC5KmuARc/edit?usp=sharing
