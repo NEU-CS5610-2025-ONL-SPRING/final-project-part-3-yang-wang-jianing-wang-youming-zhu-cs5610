@@ -118,14 +118,22 @@ router.post("/login", async (req, res) => {
     const payload = { userId: user.user_id };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "15m" });
 
-    const isProduction = process.env.NODE_ENV === "production";
+    // const isProduction = process.env.NODE_ENV === "production";
+
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   maxAge: 15 * 60 * 1000,
+    //   sameSite: isProduction ? "None" : "Lax",
+    //   secure: isProduction
+    // });
 
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000,
-      sameSite: isProduction ? "None" : "Lax",
-      secure: isProduction
+      sameSite: "None",
+      secure: true
     });
+
 
     res.json({
       user_id: user.user_id,

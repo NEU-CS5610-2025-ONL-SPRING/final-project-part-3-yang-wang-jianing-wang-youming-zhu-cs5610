@@ -11,18 +11,19 @@ import likeRoutes from "./routes/like.js";
 dotenv.config();
 const app = express();
 
-// app.use(cors({ origin: true, credentials: true }));
-const FRONTEND_URL =
-    process.env.NODE_ENV === "production"
-        ? "https://client-liart-rho.vercel.app"
-        : "http://localhost:3000";
+app.use(cors({ origin: "https://client-liart-rho.vercel.app", credentials: true }));
 
-app.use(
-    cors({
-        origin: FRONTEND_URL,
-        credentials: true,
-    })
-);
+// const FRONTEND_URL =
+//     process.env.NODE_ENV === "production"
+//         ? "https://client-liart-rho.vercel.app"
+//         : "http://localhost:3000";
+
+// app.use(
+//     cors({
+//         origin: FRONTEND_URL,
+//         credentials: true,
+//     })
+// );
 
 app.use(express.json());
 app.use(cookieParser());
