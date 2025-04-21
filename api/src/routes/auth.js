@@ -121,7 +121,7 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 15 * 60 * 1000,
-      sameSite: 'strict'
+      sameSite: 'None'
     });
 
     res.json({
