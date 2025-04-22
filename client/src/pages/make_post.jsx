@@ -44,7 +44,7 @@ function PostList() {
     <div className="mt-10 space-y-6">
       <h2 className="text-xl font-bold">My Posts</h2>
       {posts.map((post) => (
-        <div key={post.id} className="p-4 border rounded shadow relative">
+        <div key={post.id} className="p-4 border rounded shadow relative bg-white">
           {post.imageUrl && (
             <img
               src={post.imageUrl}
@@ -128,8 +128,23 @@ export default function PostForm() {
     }
   };
 
+  const backgroundStyle = {
+    // make the div fill the viewport
+    minHeight: '100vh',
+    margin: 0,
+    // set your background image (or swap for a color)
+    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${process.env.PUBLIC_URL + '/homepage_background.jpg'})`,
+    backgroundColor: '#FFFFFFFF',
+    backgroundPosition: 'center',    // center the image
+    backgroundSize: 'cover',         // scale to cover the whole area
+    backgroundRepeat: 'no-repeat',   // prevent tiling
+   
+  };
+
+  
+  
   return (
-    <div className="flex flex-col lg:flex-row p-6 gap-6 max-w-7xl mx-auto">
+    <div style={backgroundStyle} className="flex flex-col lg:flex-row p-6 gap-6 mx-auto">
       <div className="flex-1 space-y-4">
         <div className="border p-4 rounded">
           <label className="block mb-2 font-medium">Upload image</label>
@@ -140,7 +155,7 @@ export default function PostForm() {
               className="h-40 object-contain mb-2"
             />
           ) : (
-            <div className="w-full h-40 border border-dashed flex items-center justify-center text-gray-400">
+            <div className="w-full h-40 border border-dashed flex items-center justify-center text-gray-400 bg-none bg-white">
               No image selected
             </div>
           )}
