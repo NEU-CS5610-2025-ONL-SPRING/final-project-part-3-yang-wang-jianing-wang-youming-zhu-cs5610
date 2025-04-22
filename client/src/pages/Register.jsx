@@ -57,7 +57,18 @@ export default function Register() {
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor: "#f9f9f9" }}>
+    <div style={{ display: "flex", 
+    justifyContent: "center", 
+    alignItems: "center", 
+    height: "100vh", 
+    // set your background image (or swap for a color)
+    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${process.env.PUBLIC_URL + '/homepage_background.jpg'})`,
+    backgroundColor: '#FFFFFFFF',
+    backgroundPosition: 'center',    // center the image
+    backgroundSize: 'cover',         // scale to cover the whole area
+    backgroundRepeat: 'no-repeat',   // prevent tiling
+    display: 'flex',                 // center content too
+    flexDirection: 'column', }}>
       <form
         onSubmit={handleSubmit}
         style={{

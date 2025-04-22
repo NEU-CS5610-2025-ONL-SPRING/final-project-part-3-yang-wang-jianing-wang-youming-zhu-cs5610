@@ -11,19 +11,23 @@ import likeRoutes from "./routes/like.js";
 dotenv.config();
 const app = express();
 
-app.use(cors({ origin: "https://client-liart-rho.vercel.app", credentials: true }));
+const PORT = parseInt(process.env.PORT) || 8000;
 
-// const FRONTEND_URL =
-//     process.env.NODE_ENV === "production"
-//         ? "https://client-liart-rho.vercel.app"
-//         : "http://localhost:3000";
+//app.use(cors({ origin: "https://client-liart-rho.vercel.app", credentials: true }));
 
-// app.use(
-//     cors({
-//         origin: FRONTEND_URL,
-//         credentials: true,
-//     })
-// );
+const FRONTEND_URL =
+    process.env.NODE_ENV === "production"
+        ? "https://client-liart-rho.vercel.app"
+        : `http://localhost:3000`;
+
+console.log(`HTTP requests on ${FRONTEND_URL}`);
+
+app.use(
+    cors({
+        origin: FRONTEND_URL,
+        credentials: true,
+    })
+);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -39,5 +43,4 @@ app.get("/ping", (req, res) => res.json({ message: "pong" }));
 // make a get endpoint for the search (searchquery as a parameter)
 
 // app.listen(8000, () => console.log("Server running on http://localhost:8000"));
-const PORT = parseInt(process.env.PORT) || 8000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

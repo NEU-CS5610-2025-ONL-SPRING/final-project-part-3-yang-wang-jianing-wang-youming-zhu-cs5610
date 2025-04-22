@@ -23,8 +23,29 @@ export default function Login({ onLogin }) {
     }
   };
 
+
+  const pageStyle = {
+    
+
+  };
+  
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", backgroundColor: "#f9f9f9" }}>
+    <div style={{
+        justifyContent: "center", 
+        alignItems: "center", 
+        height: "100vh", 
+        // make the div fill the viewport
+        minHeight: '100vh',
+        margin: 0,
+        // set your background image (or swap for a color)
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(${process.env.PUBLIC_URL + '/homepage_background.jpg'})`,
+        backgroundColor: '#FFFFFFFF',
+        backgroundPosition: 'center',    // center the image
+        backgroundSize: 'cover',         // scale to cover the whole area
+        backgroundRepeat: 'no-repeat',   // prevent tiling
+        display: 'flex',                 // center content too
+        flexDirection: 'column',
+       }}>
       <div style={{ width: "400px", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", backgroundColor: "#fff" }}>
         <h1
           style={{
