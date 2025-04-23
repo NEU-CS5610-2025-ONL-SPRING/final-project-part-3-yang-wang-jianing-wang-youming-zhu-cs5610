@@ -6,12 +6,15 @@ This is a fullstack travel tip web application that allows users to share travel
 [https://client-liart-rho.vercel.app/](https://client-liart-rho.vercel.app/)
 
 
+
+
 ## ✨ Features
 
 - View travel tips posted by other users
 - Add new travel posts with details like title, image, and location
 - Search and browse by keywords
 - Simple user authentication using JWT
+- Automatically retrieve ratings of the place via Google Place API
 
 ## 📁 Project Structure
 
