@@ -103,4 +103,7 @@ JWT_SECRET=your-jwt-secret
 - **Database**: MySQL
 - **Authentication**: JWT (JSON Web Tokens)
 
+# Tests:
+Under client-src-components folder
+
 ## deployment instructions: https://docs.google.com/document/d/1EAXheb9Q7at094xKAhRikD5uQE15q7G_OWaC5KmuARc/edit?usp=sharing

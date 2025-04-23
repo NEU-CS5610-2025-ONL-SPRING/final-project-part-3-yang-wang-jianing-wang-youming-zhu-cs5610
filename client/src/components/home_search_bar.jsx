@@ -10,7 +10,6 @@ function SearchBar() {
 
     const trimmed = query.trim();
     if (trimmed) {
-      // navigate(`/search-results?place=${encodeURIComponent(trimmed)}`);
       navigate(`/search?place=${encodeURIComponent(trimmed)}`);
     }
   };
